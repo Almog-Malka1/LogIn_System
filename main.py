@@ -1,4 +1,23 @@
+import sys
+import getpass
+from tkinter import *
+
+
+# -----GUI setup-----
+root = Tk()
+root.title("Login Form")
+root.geometry('500x500')
+
+mainloop()
+
+
+
+
+
+
+
 #GUI MENU 
+
 
 #TAKE INFO
 
