@@ -2,7 +2,7 @@
 import getpass
 import os
 import platform
-
+import time
 
 # ---- local vars ----
 main_txt = r"""
@@ -27,14 +27,40 @@ main_txt = r"""
 
  """
 
+login_txt = r""" 
+  _                    _____           
+ | |                  |_   _|        _ 
+ | |     ___   __ _     | |  _ __   (_)
+ | |    / _ \ / _` |    | | | '_ \     
+ | |___| (_) | (_| |   _| |_| | | |  _ 
+ |______\___/ \__, |  |_____|_| |_| (_)
+               __/ |                   
+              |___/  
+ """
+
+singup_txt = r"""
+   _____ _                _    _           
+  / ____(_)              | |  | |        _ 
+ | (___  _ _ __   __ _   | |  | |_ __   (_)
+  \___ \| | '_ \ / _` |  | |  | | '_ \     
+  ____) | | | | | (_| |  | |__| | |_) |  _ 
+ |_____/|_|_| |_|\__, |   \____/| .__/  (_)
+                  __/ |         | |        
+                 |___/          |_|   
+ """
+#____vars____
 option = None
+user_mail = "user@gmail.com"
+user_pass = "user1234"
+run = None # var for while loops in funcs
+#____________
 
 # -----GUI setup-----
 def main_screen():
-    #global vars
+    # global vars
     global option
 
-    #show main screen
+    # show main screen
     print(main_txt)
     option = input("Enter your number: " )
     option_list = ['1', '2', '3']
@@ -45,11 +71,54 @@ def main_screen():
 
     return option
 
+
 def login_form():
-    print("log in.")
+    # global vars
+    global user_mail
+    global user_pass
+    global login_txt
+
+    # Log In text
+    print(login_txt)
+
+    # take input from user
+    mail = input("| Mail: ")
+    password = getpass.getpass("| Password: ")
+    tries = 1 # var for the loop
+
+    if mail == user_mail:
+            if password == user_pass:
+                print("\n You are logged in.")
+    else:
+        print("Inviled info, Try again.")
+        # check the user input
+        while True:
+            print("\n_______________\n")
+            mail = input("| Mail: ")
+            password = getpass.getpass("| Password: ")
+            print("\n_______________\n")
+        
+            if mail == user_mail:
+                if password == user_pass:
+                    print("\n You are logged in.")
+                    break
+            elif tries == 3:
+                print("You trid to meny times.")
+                sleep = time.sleep(5) # wait 5 seconds
+                print(sleep)
+                tries = 1
+                main()
+            else:
+                print(f"Inviled info, Try again. ({tries})")
+
+            # tries var   
+            tries = tries + 1
+
 
 def singup_form():
-    print("sing up.")
+    return
+    
+    
 
 
 
