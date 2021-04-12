@@ -53,7 +53,7 @@ singup_txt = r"""
 #____vars____
 option = None
 run = None # var for while loops in funcs
-location = "your_file.txt"
+location = r"C:\Users\almog\Documents\Python\projects\GUI_projects\LogIn_system\accounts.txt"
 #____________
 
 # -----GUI setup-----
@@ -147,14 +147,14 @@ def singup_form():
                 print("|\n* Erorr, The passwords do not match.")
                 print("____________")
 
-    print("|\n| You can login right now!")
-    login_form()
-
     # working with accounts.txt
     a = open(location, 'a+')
     a.write('\n' + f"---\n{mail} , {verify}")
     a.close()
-    print(" Your account has been successfully created!")
+    print("|\n| Your account has been successfully created!")
+
+    print("|\n| You can login right now!")
+    login_form()
     
 
 def main():
