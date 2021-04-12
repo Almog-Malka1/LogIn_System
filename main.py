@@ -4,7 +4,7 @@ import os
 import platform
 import time
 
-# ---- local vars ----
+# ---- text vars ----
 main_txt = r"""
   _                 _____          _____           _                 
  | |               |_   _|        / ____|         | |                
