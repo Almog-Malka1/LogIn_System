@@ -52,9 +52,8 @@ singup_txt = r"""
  """
 #____vars____
 option = None
-user_mail = "user@gmail.com"
-user_pass = "user1234"
 run = None # var for while loops in funcs
+location = "your_file.txt"
 #____________
 
 # -----GUI setup-----
@@ -76,46 +75,39 @@ def main_screen():
 
 def login_form():
     # global vars
-    global user_mail
-    global user_pass
     global login_txt
+    global location
 
     # Log In text
     print(login_txt)
 
-    # take input from user
-    mail = input("| Mail: ")
-    password = getpass.getpass("| Password: ")
-    tries = 1 # var for the loop
+    # working with the files
+    with open(location, 'r') as file:
+        user_info = file.read()
+        # take input from user
+        mail = input("| Enter your gmail:  ")
+        password = input("| Enter your password: ")
 
-    if mail == user_mail:
-            if password == user_pass:
-                print("\n You are logged in.")
-    else:
-        print("Inviled info, Try again.")
-        # check the user input
-        while True:
-            print("\n_______________\n")
-            mail = input("| Mail: ")
-            password = getpass.getpass("| Password: ")
-            print("\n_______________\n")
-        
-            if mail == user_mail:
-                if password == user_pass:
-                    print("\n You are logged in.")
-                    break
-            elif tries == 3:
-                print("You trid to meny times.")
-                sleep = time.sleep(5) # wait 5 seconds
-                print(sleep)
-                tries = 1
-                main()
-            else:
-                print(f"Inviled info, Try again. ({tries})")
+        # chack if the user info found in the system
+        if mail in user_info:
+            if password in user_info:
+                print("|\n| You are logged in.")
+        else:
+            run = True
+            while run:
+                print("| \n* Erorr, The email or password is incorrect \n|")
+                mail = input("| Enter your gmail:  ")
+                password = input("| Enter your password: ")
+                if mail in user_info:
+                    if password in user_info:
+                        print("|\n| You are logged in.")
+                        run = False
+        time.sleep(3)
+        main()
 
-            # tries var   
-            tries = tries + 1
+        file.close()
 
+                
 
 def singup_form():
     # main sing up text
@@ -127,17 +119,17 @@ def singup_form():
         password = input("| Enter a new password: ")
         verify = getpass.getpass("| Vrify your password: ")
         if password != verify:
-            print("| Erorr, The passwords do not match.")
+            print("|\n* Erorr, The passwords do not match.")
             while password != verify:
                 print()
                 password = input("| Enter a new password: ")
                 verify = getpass.getpass("| Vrify your password: ")
                 print("____________")
-                print("| Erorr, The passwords do not match.")
+                print("|\n* Erorr, The passwords do not match.")
                 print("____________")
     # if the user enter broke email adress     
     else:
-        print("|\n" + "| Erorr, try to add '@gmail.com' to your adress \n")
+        print("|\n" + "* Erorr, try to add '@gmail.com' to your adress \n|")
         # ask from user to correct mail adress
         while mail[-10:-1] != '@gmail.co':
             mail = input("| Enter your gmail: ")
@@ -146,18 +138,20 @@ def singup_form():
         verify = getpass.getpass("| Vrify your password: ")
 
         if password != verify:
-            print("| Erorr, The passwords do not match.")
+            print("|\n* Erorr, The passwords do not match.")
             while password != verify:
                 print("| \n")
                 password = input("| Enter a new password: ")
                 verify = getpass.getpass("| Vrify your password: ")
                 print("____________")
-                print("| Erorr, The passwords do not match.")
+                print("|\n* Erorr, The passwords do not match.")
                 print("____________")
 
+    print("|\n| You can login right now!")
+    login_form()
 
     # working with accounts.txt
-    a = open(r"C:\Users\almog\Documents\Python\projects\GUI_projects\LogIn_system\accounts.txt", 'a+')
+    a = open(location, 'a+')
     a.write('\n' + f"---\n{mail} , {verify}")
     a.close()
     print(" Your account has been successfully created!")
