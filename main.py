@@ -47,6 +47,8 @@ singup_txt = r"""
  |_____/|_|_| |_|\__, |   \____/| .__/  (_)
                   __/ |         | |        
                  |___/          |_|   
+
+
  """
 #____vars____
 option = None
@@ -116,11 +118,50 @@ def login_form():
 
 
 def singup_form():
-    return
-    
-    
+    # main sing up text
+    print(singup_txt)    
+    mail = input("| Enter your gmail: ")
+
+    # check for correct mail adress
+    if mail[-10:-1] == '@gmail.co':
+        password = input("| Enter a new password: ")
+        verify = getpass.getpass("| Vrify your password: ")
+        if password != verify:
+            print("| Erorr, The passwords do not match.")
+            while password != verify:
+                print()
+                password = input("| Enter a new password: ")
+                verify = getpass.getpass("| Vrify your password: ")
+                print("____________")
+                print("| Erorr, The passwords do not match.")
+                print("____________")
+    # if the user enter broke email adress     
+    else:
+        print("|\n" + "| Erorr, try to add '@gmail.com' to your adress \n")
+        # ask from user to correct mail adress
+        while mail[-10:-1] != '@gmail.co':
+            mail = input("| Enter your gmail: ")
+        
+        password = input("| Enter a new password: ")
+        verify = getpass.getpass("| Vrify your password: ")
+
+        if password != verify:
+            print("| Erorr, The passwords do not match.")
+            while password != verify:
+                print("| \n")
+                password = input("| Enter a new password: ")
+                verify = getpass.getpass("| Vrify your password: ")
+                print("____________")
+                print("| Erorr, The passwords do not match.")
+                print("____________")
 
 
+    # working with accounts.txt
+    a = open(r"C:\Users\almog\Documents\Python\projects\GUI_projects\LogIn_system\accounts.txt", 'a+')
+    a.write('\n' + f"---\n{mail} , {verify}")
+    a.close()
+    print(" Your account has been successfully created!")
+    
 
 def main():
     # global vars
@@ -134,6 +175,7 @@ def main():
         singup_form()
     elif option == '3':
         exit()
+
 
 main()
 
